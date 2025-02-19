@@ -1,0 +1,26 @@
+{
+  "name": "avr-tts-deepgram",
+  "version": "1.0.1",
+  "author": "Giuseppe Careri",
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "start:dev": "nodemon --inspect ./index.js",
+    "dc:build": "docker build --platform=linux/amd64 -t agentvoiceresponse/avr-tts-deepgram:latest -t agentvoiceresponse/avr-tts-deepgram:${npm_package_version} .",
+    "dc:push": "docker push agentvoiceresponse/avr-tts-deepgram:latest && docker push agentvoiceresponse/avr-tts-deepgram:${npm_package_version}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentvoiceresponse/avr-tts-deepgram.git"
+  },
+  "dependencies": {
+    "@deepgram/sdk": "^3.11.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
