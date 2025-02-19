@@ -42,9 +42,6 @@ const handleTextToSpeech = async (req, res) => {
 
   try {
     // Make a request and configure the request with options (such as model choice, audio configuration, etc.)
-    
-    console.log("Deepgram Speech Configuration Loaded");
-
     const response = await deepgram.speak.request(
       { text },
       config
