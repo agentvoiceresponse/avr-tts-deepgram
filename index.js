@@ -36,6 +36,8 @@ const handleTextToSpeech = async (req, res) => {
     return res.status(400).json({ message: 'Text is required' });
   }
 
+  console.log("Deepgram TTS Request Received", text);
+  
   res.setHeader('Content-Type', 'audio/l16');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
@@ -52,23 +54,11 @@ const handleTextToSpeech = async (req, res) => {
 
     if (stream) {
       const reader = stream.getReader();
-      const chunks = [];
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-
-        chunks.push(value);
-      }
-
-      const dataArray = chunks.reduce(
-        (acc, chunk) => Uint8Array.from([...acc, ...chunk]),
-        new Uint8Array(0)
-      );
-
-      for (let i = 0; i < dataArray.length; i += 320) {
-        const chunk = dataArray.slice(i, i + 320);
-        res.write(chunk);
+        res.write(value);
       }
 
       res.end();
